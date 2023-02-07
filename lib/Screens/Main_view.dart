@@ -20,8 +20,8 @@ int _selectedIndex = 0;
 
 final List pages =[
   Home(),
-  const CArtView(),
   const Favourite(),
+  const CArtView(),
   const Profile(),
 
 

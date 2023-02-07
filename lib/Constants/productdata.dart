@@ -9,7 +9,7 @@ List<Map> products = [
     "isfavourite": false,
   },
   {
-    'productname': 'Watermelon..',
+    'productname': 'Watermelon\nPeperomia',
     'price': '\$350',
     'productmg': 'assets/images/flower2.png',
     "color": const Color(0xffFFE899),

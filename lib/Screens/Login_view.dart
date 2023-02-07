@@ -4,7 +4,8 @@ import 'package:hackathon/Constants/Colors.dart';
 import 'package:hackathon/Constants/Texts.dart';
 import 'package:hackathon/Constants/images.dart';
 import 'package:hackathon/Constants/textstyle.dart';
-import 'package:hackathon/Screens/Home.dart';
+import 'package:hackathon/Screens/Main_view.dart';
+
 import 'package:hackathon/Widgets/ElevatedButton.dart';
 import 'package:hackathon/Widgets/Passtextfield.dart';
 import 'package:hackathon/Widgets/textfield.dart';
@@ -23,7 +24,7 @@ class Login extends StatelessWidget {
         password: pass.text,
       );
       Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-        return const  MainView();
+        return const  Main();
       },));
     } on FirebaseAuthException catch (e) {
       return showDialog(

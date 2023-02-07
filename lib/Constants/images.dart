@@ -37,6 +37,8 @@ static String pug  = "assets/images/pug.png";
 static String cart = "assets/images/Group 60.png";
 static String backgroundimage = "assets/images/lines.png";
 
+// detail page
+static String fav = "assets/images/fav.png";
 
 
 

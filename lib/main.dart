@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon/Screens/Main_view.dart';
+import 'package:hackathon/Screens/detailpage.dart';
 import 'package:hackathon/firebase_options.dart';
 
 void main() async {

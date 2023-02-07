@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon/Constants/Colors.dart';
 import 'package:hackathon/Constants/Texts.dart';
@@ -8,6 +9,7 @@ import 'package:hackathon/Screens/Drawer.dart';
 import 'package:hackathon/Widgets/banner.dart';
 import 'package:hackathon/Widgets/producthometile.dart';
 import 'package:hackathon/Widgets/searchfield.dart';
+import 'package:lottie/lottie.dart';
 
 class Home extends StatefulWidget {
   Home({super.key});
@@ -19,6 +21,13 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   // controller for earch field
   TextEditingController searchcontroller = TextEditingController();
+
+  // productsref
+  final producstref = FirebaseFirestore.instance.collection('products');
+
+  getproducts() async {
+    return producstref.snapshots();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -144,65 +153,47 @@ class _HomeState extends State<Home> {
                   const SizedBox(
                     height: 4,
                   ),
-                  Container(
+                  SizedBox(
                     height: 600,
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10, top: 60),
                       child: TabBarView(
                         children: [
-                          ListView.separated(
-                            itemBuilder: (context, index) {
-                              return Producttile(
-                                  color: products[index]['color'],
-                                  price: products[index]['price'],
-                                  productmg: products[index]['productmg'],
-                                  productname: products[index]['productname'],
-                                  isFavourite:products[index]['isfavourite'] ,
-                                  );
+                          StreamBuilder(
+                            stream: producstref.snapshots(),
+                            builder:
+                                (BuildContext context, AsyncSnapshot snapshot) {
+                              if (snapshot.hasData) {
+                                return ListView.separated(
+                                  itemCount: snapshot.data.docs.length,
+                                  itemBuilder: (context, index) {
+                                    final DocumentSnapshot documentSnapshot =
+                                        snapshot.data!.docs[index];
+                                    return Producttile(
+                                      color: products[index]['color'],
+                                      price: documentSnapshot["price"],
+                                      productmg: products[index]['productmg'],
+                                      productname:
+                                          documentSnapshot['productname'],
+                                      isFavourite:
+                                          documentSnapshot['isfavourite'],
+                                    );
+                                  },
+                                  separatorBuilder: (context, index) {
+                                    return const SizedBox(
+                                      height: 54,
+                                    );
+                                  },
+                                );
+                              } else {
+                                return const CircularProgressIndicator();
+                              }
                             },
-                            separatorBuilder: (context, index) {
-                              return const SizedBox(
-                                height: 54,
-                              );
-                            },
-                            itemCount: products.length,
                           ),
-                          SizedBox(
-                            child: Text(
-                              "Unfortunately there is nothing",
-                              style: philosopher.copyWith(
-                                fontSize: 20,
-                                fontWeight: FontWeight.normal,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            child: Text(
-                              "Unfortunately there is nothing",
-                              style: philosopher.copyWith(
-                                fontSize: 20,
-                                fontWeight: FontWeight.normal,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            child: Text(
-                              "Unfortunately there is nothing",
-                              style: philosopher.copyWith(
-                                fontSize: 20,
-                                fontWeight: FontWeight.normal,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            child: Text(
-                              "Unfortunately there is nothing",
-                              style: philosopher.copyWith(
-                                fontSize: 20,
-                                fontWeight: FontWeight.normal,
-                              ),
-                            ),
-                          ),
+                          Lottie.asset("assets/lotties/lottie.json"),
+                          Lottie.asset("assets/lotties/lottie.json"),
+                          Lottie.asset("assets/lotties/lottie.json"),
+                          Lottie.asset("assets/lotties/lottie.json"),
                         ],
                       ),
                     ),
@@ -246,7 +237,7 @@ class _HomeState extends State<Home> {
                     height: 24,
                   ),
                   Text(
-                    Textconstants.plife2,
+                    Textconstants.plife3,
                     style: popin.copyWith(
                       fontSize: 24,
                       fontWeight: FontWeight.w700,

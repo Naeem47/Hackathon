@@ -60,6 +60,13 @@ static String drawerbuttontxt = "Enter your Email";
   static String plife2  = "Live amongst Living";
   static String plife3  = "Spread the joy";
 
+  // detail 
+
+  static String detail = "Air Purifier";
+    static String price = "Price";
+    static String size = "Size";
+    static String sizedef = "5” h";
+
 
 
   
